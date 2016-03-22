@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.grbLogin = new System.Windows.Forms.GroupBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtLogin = new System.Windows.Forms.TextBox();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.lblLogin = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
-            this.lblLogin = new System.Windows.Forms.Label();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.txtLogin = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
             this.grbLogin.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,41 @@
             this.grbLogin.Size = new System.Drawing.Size(291, 94);
             this.grbLogin.TabIndex = 0;
             this.grbLogin.TabStop = false;
+            // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(94, 52);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(167, 20);
+            this.txtPassword.TabIndex = 3;
+            this.txtPassword.Text = "tarasenko";
+            this.txtPassword.UseSystemPasswordChar = true;
+            // 
+            // txtLogin
+            // 
+            this.txtLogin.Location = new System.Drawing.Point(94, 19);
+            this.txtLogin.Name = "txtLogin";
+            this.txtLogin.Size = new System.Drawing.Size(167, 20);
+            this.txtLogin.TabIndex = 2;
+            this.txtLogin.Text = "tarasenko";
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Location = new System.Drawing.Point(15, 55);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(53, 13);
+            this.lblPassword.TabIndex = 1;
+            this.lblPassword.Text = "Password";
+            // 
+            // lblLogin
+            // 
+            this.lblLogin.AutoSize = true;
+            this.lblLogin.Location = new System.Drawing.Point(15, 22);
+            this.lblLogin.Name = "lblLogin";
+            this.lblLogin.Size = new System.Drawing.Size(33, 13);
+            this.lblLogin.TabIndex = 0;
+            this.lblLogin.Text = "Login";
             // 
             // btnCancel
             // 
@@ -75,39 +110,6 @@
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            // 
-            // lblLogin
-            // 
-            this.lblLogin.AutoSize = true;
-            this.lblLogin.Location = new System.Drawing.Point(15, 22);
-            this.lblLogin.Name = "lblLogin";
-            this.lblLogin.Size = new System.Drawing.Size(33, 13);
-            this.lblLogin.TabIndex = 0;
-            this.lblLogin.Text = "Login";
-            // 
-            // lblPassword
-            // 
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(15, 55);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(53, 13);
-            this.lblPassword.TabIndex = 1;
-            this.lblPassword.Text = "Password";
-            // 
-            // txtLogin
-            // 
-            this.txtLogin.Location = new System.Drawing.Point(94, 19);
-            this.txtLogin.Name = "txtLogin";
-            this.txtLogin.Size = new System.Drawing.Size(167, 20);
-            this.txtLogin.TabIndex = 2;
-            // 
-            // txtPassword
-            // 
-            this.txtPassword.Location = new System.Drawing.Point(94, 52);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(167, 20);
-            this.txtPassword.TabIndex = 3;
-            this.txtPassword.UseSystemPasswordChar = true;
             // 
             // LoginForm
             // 

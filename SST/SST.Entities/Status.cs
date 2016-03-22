@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace SST.Entities
 {
-    public class Discipline
+    public class Status
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public Tutor TutorInfo { get; set; }
-        public Price PriceInfo { get; set; }
+        public string StatusName { get; set; }
     }
 }

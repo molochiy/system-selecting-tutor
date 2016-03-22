@@ -31,6 +31,7 @@ namespace SST.DesktopUI.Forms
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            //InsertUsers();
             string login = txtLogin.Text;
             string password = txtPassword.Text;
 
