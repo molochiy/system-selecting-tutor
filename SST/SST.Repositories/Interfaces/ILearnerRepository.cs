@@ -12,5 +12,7 @@ namespace SST.Repositories.Interfaces
         IEnumerable<Learner> GetLearnersByPartOfEmail(string email);
 
         Learner GetLearnerByEmail(string email);
+
+        int InsertLearner(Learner learner);        
     }
 }

@@ -11,5 +11,6 @@ namespace SST.Repositories.Interfaces
     {
         IEnumerable<Discipline> GetAllDesciplines();
         IEnumerable<Discipline> GetDisciplinesByTutorId(int id);
+        int GetDisciplineIdByName(string name);
     }
 }

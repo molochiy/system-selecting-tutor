@@ -30,8 +30,7 @@ namespace SST.DesktopUI.Forms
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
-        {
-            //InsertUsers();
+        {            
             string login = txtLogin.Text;
             string password = txtPassword.Text;
 
@@ -50,50 +49,6 @@ namespace SST.DesktopUI.Forms
                 IsEntered = true;
                 this.Close();
             }
-        }
-
-        private void InsertUsers()
-        {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString))
-            {
-                connection.Open();
-                string q = @"INSERT INTO tblUser(FirstName, LastName, Login, Password, Disabled) VALUES (@fn, @ln, @l, @p, 0);";
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = q;
-                    command.Parameters.AddWithValue("@fn", "Taras");
-                    command.Parameters.AddWithValue("@ln", "Tarasenko");
-                    command.Parameters.AddWithValue("@l", "tarasenko");
-                    command.Parameters.AddWithValue("@p", Encryptor.MD5Hash("tarasenko"));
-                    command.ExecuteNonQuery();
-                }
-                
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = q;
-
-                    command.Parameters.AddWithValue("@fn", "Stepan");
-                    command.Parameters.AddWithValue("@ln", "Stepanenko");
-                    command.Parameters.AddWithValue("@l", "stepanenko");
-                    command.Parameters.AddWithValue("@p", Encryptor.MD5Hash("stepanenko"));
-                    command.ExecuteNonQuery();
-                }
-                    
-
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = connection;
-                    command.CommandText = q;
-
-                    command.Parameters.AddWithValue("@fn", "Iryna");
-                    command.Parameters.AddWithValue("@ln", "Kolisnychenko");
-                    command.Parameters.AddWithValue("@l", "kolisnychenko");
-                    command.Parameters.AddWithValue("@p", Encryptor.MD5Hash("kolisnychenko"));
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
+        }        
     }
 }

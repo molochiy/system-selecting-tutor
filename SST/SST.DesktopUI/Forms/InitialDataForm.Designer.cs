@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.grpInitialData = new System.Windows.Forms.GroupBox();
-            this.dtmFirstLessonStart = new System.Windows.Forms.DateTimePicker();
-            this.lblAmountLessons = new System.Windows.Forms.Label();
-            this.lblFirstDate = new System.Windows.Forms.Label();
-            this.lblTimeOfLesson = new System.Windows.Forms.Label();
-            this.txtAmountLessons = new System.Windows.Forms.TextBox();
             this.cmbTime = new System.Windows.Forms.ComboBox();
+            this.txtAmountLessons = new System.Windows.Forms.TextBox();
+            this.lblTimeOfLesson = new System.Windows.Forms.Label();
+            this.lblFirstDate = new System.Windows.Forms.Label();
+            this.lblAmountLessons = new System.Windows.Forms.Label();
+            this.dtmFirstLessonStart = new System.Windows.Forms.DateTimePicker();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.grpInitialData.SuspendLayout();
@@ -57,32 +57,20 @@
             this.grpInitialData.TabStop = false;
             this.grpInitialData.Text = "Enter initial data";
             // 
-            // dtmFirstLessonStart
+            // cmbTime
             // 
-            this.dtmFirstLessonStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtmFirstLessonStart.Location = new System.Drawing.Point(142, 55);
-            this.dtmFirstLessonStart.Name = "dtmFirstLessonStart";
-            this.dtmFirstLessonStart.Size = new System.Drawing.Size(95, 20);
-            this.dtmFirstLessonStart.TabIndex = 1;
-            this.dtmFirstLessonStart.ValueChanged += new System.EventHandler(this.dtmFirstLessonStart_ValueChanged);
+            this.cmbTime.FormattingEnabled = true;
+            this.cmbTime.Location = new System.Drawing.Point(142, 82);
+            this.cmbTime.Name = "cmbTime";
+            this.cmbTime.Size = new System.Drawing.Size(95, 21);
+            this.cmbTime.TabIndex = 2;
             // 
-            // lblAmountLessons
+            // txtAmountLessons
             // 
-            this.lblAmountLessons.AutoSize = true;
-            this.lblAmountLessons.Location = new System.Drawing.Point(28, 33);
-            this.lblAmountLessons.Name = "lblAmountLessons";
-            this.lblAmountLessons.Size = new System.Drawing.Size(81, 13);
-            this.lblAmountLessons.TabIndex = 1;
-            this.lblAmountLessons.Text = "Amount lessons";
-            // 
-            // lblFirstDate
-            // 
-            this.lblFirstDate.AutoSize = true;
-            this.lblFirstDate.Location = new System.Drawing.Point(28, 61);
-            this.lblFirstDate.Name = "lblFirstDate";
-            this.lblFirstDate.Size = new System.Drawing.Size(50, 13);
-            this.lblFirstDate.TabIndex = 2;
-            this.lblFirstDate.Text = "First date";
+            this.txtAmountLessons.Location = new System.Drawing.Point(142, 30);
+            this.txtAmountLessons.Name = "txtAmountLessons";
+            this.txtAmountLessons.Size = new System.Drawing.Size(79, 20);
+            this.txtAmountLessons.TabIndex = 0;
             // 
             // lblTimeOfLesson
             // 
@@ -93,20 +81,32 @@
             this.lblTimeOfLesson.TabIndex = 3;
             this.lblTimeOfLesson.Text = "Time of lesson";
             // 
-            // txtAmountLessons
+            // lblFirstDate
             // 
-            this.txtAmountLessons.Location = new System.Drawing.Point(142, 30);
-            this.txtAmountLessons.Name = "txtAmountLessons";
-            this.txtAmountLessons.Size = new System.Drawing.Size(79, 20);
-            this.txtAmountLessons.TabIndex = 0;
+            this.lblFirstDate.AutoSize = true;
+            this.lblFirstDate.Location = new System.Drawing.Point(28, 61);
+            this.lblFirstDate.Name = "lblFirstDate";
+            this.lblFirstDate.Size = new System.Drawing.Size(50, 13);
+            this.lblFirstDate.TabIndex = 2;
+            this.lblFirstDate.Text = "First date";
             // 
-            // cmbTime
+            // lblAmountLessons
             // 
-            this.cmbTime.FormattingEnabled = true;
-            this.cmbTime.Location = new System.Drawing.Point(142, 82);
-            this.cmbTime.Name = "cmbTime";
-            this.cmbTime.Size = new System.Drawing.Size(95, 21);
-            this.cmbTime.TabIndex = 2;
+            this.lblAmountLessons.AutoSize = true;
+            this.lblAmountLessons.Location = new System.Drawing.Point(28, 33);
+            this.lblAmountLessons.Name = "lblAmountLessons";
+            this.lblAmountLessons.Size = new System.Drawing.Size(81, 13);
+            this.lblAmountLessons.TabIndex = 1;
+            this.lblAmountLessons.Text = "Amount lessons";
+            // 
+            // dtmFirstLessonStart
+            // 
+            this.dtmFirstLessonStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtmFirstLessonStart.Location = new System.Drawing.Point(142, 55);
+            this.dtmFirstLessonStart.Name = "dtmFirstLessonStart";
+            this.dtmFirstLessonStart.Size = new System.Drawing.Size(95, 20);
+            this.dtmFirstLessonStart.TabIndex = 1;
+            this.dtmFirstLessonStart.ValueChanged += new System.EventHandler(this.dtmFirstLessonStart_ValueChanged);
             // 
             // btnOK
             // 
@@ -137,7 +137,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.grpInitialData);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "InitialDataForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

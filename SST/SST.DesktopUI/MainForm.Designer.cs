@@ -31,6 +31,7 @@
             this.tabModes = new System.Windows.Forms.TabControl();
             this.tabPageLearner = new System.Windows.Forms.TabPage();
             this.pnlSelectTutor = new System.Windows.Forms.Panel();
+            this.btnMakeOrder = new System.Windows.Forms.Button();
             this.txtAmountLessons = new System.Windows.Forms.TextBox();
             this.lblFirstDate = new System.Windows.Forms.Label();
             this.lblAmountLessons = new System.Windows.Forms.Label();
@@ -84,9 +85,7 @@
             this.lblTutorEmail = new System.Windows.Forms.Label();
             this.lblTutorLastName = new System.Windows.Forms.Label();
             this.lblTutorFirstName = new System.Windows.Forms.Label();
-            this.chkNewTutor = new System.Windows.Forms.CheckBox();
             this.lblFindTutor = new System.Windows.Forms.Label();
-            this.btnMakeOrder = new System.Windows.Forms.Button();
             this.tabModes.SuspendLayout();
             this.tabPageLearner.SuspendLayout();
             this.pnlSelectTutor.SuspendLayout();
@@ -155,6 +154,16 @@
             this.pnlSelectTutor.Name = "pnlSelectTutor";
             this.pnlSelectTutor.Size = new System.Drawing.Size(932, 313);
             this.pnlSelectTutor.TabIndex = 8;
+            // 
+            // btnMakeOrder
+            // 
+            this.btnMakeOrder.Location = new System.Drawing.Point(643, 287);
+            this.btnMakeOrder.Name = "btnMakeOrder";
+            this.btnMakeOrder.Size = new System.Drawing.Size(241, 23);
+            this.btnMakeOrder.TabIndex = 16;
+            this.btnMakeOrder.Text = "Make an order";
+            this.btnMakeOrder.UseVisualStyleBackColor = true;
+            this.btnMakeOrder.Click += new System.EventHandler(this.btnMakeOrder_Click);
             // 
             // txtAmountLessons
             // 
@@ -373,7 +382,7 @@
             // 
             // btnShowTutors
             // 
-            this.btnShowTutors.Location = new System.Drawing.Point(664, 19);
+            this.btnShowTutors.Location = new System.Drawing.Point(675, 21);
             this.btnShowTutors.Name = "btnShowTutors";
             this.btnShowTutors.Size = new System.Drawing.Size(104, 23);
             this.btnShowTutors.TabIndex = 6;
@@ -383,7 +392,7 @@
             // 
             // btnLoadInfoAboutLearner
             // 
-            this.btnLoadInfoAboutLearner.Location = new System.Drawing.Point(204, 19);
+            this.btnLoadInfoAboutLearner.Location = new System.Drawing.Point(388, 20);
             this.btnLoadInfoAboutLearner.Name = "btnLoadInfoAboutLearner";
             this.btnLoadInfoAboutLearner.Size = new System.Drawing.Size(75, 23);
             this.btnLoadInfoAboutLearner.TabIndex = 5;
@@ -393,7 +402,7 @@
             // 
             // txtLearnerByEmail
             // 
-            this.txtLearnerByEmail.Location = new System.Drawing.Point(12, 20);
+            this.txtLearnerByEmail.Location = new System.Drawing.Point(196, 21);
             this.txtLearnerByEmail.Name = "txtLearnerByEmail";
             this.txtLearnerByEmail.Size = new System.Drawing.Size(177, 20);
             this.txtLearnerByEmail.TabIndex = 4;
@@ -409,7 +418,7 @@
             this.grpLearnerInfo.Controls.Add(this.lblLearnerEmail);
             this.grpLearnerInfo.Controls.Add(this.lblLearnerLastName);
             this.grpLearnerInfo.Controls.Add(this.lblLearnerFirstName);
-            this.grpLearnerInfo.Location = new System.Drawing.Point(9, 56);
+            this.grpLearnerInfo.Location = new System.Drawing.Point(193, 57);
             this.grpLearnerInfo.Name = "grpLearnerInfo";
             this.grpLearnerInfo.Size = new System.Drawing.Size(586, 113);
             this.grpLearnerInfo.TabIndex = 3;
@@ -483,7 +492,7 @@
             // chkNewLearner
             // 
             this.chkNewLearner.AutoSize = true;
-            this.chkNewLearner.Location = new System.Drawing.Point(299, 23);
+            this.chkNewLearner.Location = new System.Drawing.Point(483, 24);
             this.chkNewLearner.Name = "chkNewLearner";
             this.chkNewLearner.Size = new System.Drawing.Size(83, 17);
             this.chkNewLearner.TabIndex = 2;
@@ -494,7 +503,7 @@
             // lblFindLearner
             // 
             this.lblFindLearner.AutoSize = true;
-            this.lblFindLearner.Location = new System.Drawing.Point(9, 3);
+            this.lblFindLearner.Location = new System.Drawing.Point(193, 4);
             this.lblFindLearner.Name = "lblFindLearner";
             this.lblFindLearner.Size = new System.Drawing.Size(106, 13);
             this.lblFindLearner.TabIndex = 1;
@@ -506,7 +515,6 @@
             this.tabPageTutor.Controls.Add(this.btnLoadInfoAboutTutor);
             this.tabPageTutor.Controls.Add(this.txtTutorByEmail);
             this.tabPageTutor.Controls.Add(this.grpTutorInfo);
-            this.tabPageTutor.Controls.Add(this.chkNewTutor);
             this.tabPageTutor.Controls.Add(this.lblFindTutor);
             this.tabPageTutor.Location = new System.Drawing.Point(4, 22);
             this.tabPageTutor.Name = "tabPageTutor";
@@ -522,7 +530,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvTutorsDisciplines.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvTutorsDisciplines.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTutorsDisciplines.Location = new System.Drawing.Point(9, 215);
+            this.dgvTutorsDisciplines.Location = new System.Drawing.Point(309, 215);
             this.dgvTutorsDisciplines.Name = "dgvTutorsDisciplines";
             this.dgvTutorsDisciplines.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTutorsDisciplines.Size = new System.Drawing.Size(403, 274);
@@ -530,7 +538,7 @@
             // 
             // btnLoadInfoAboutTutor
             // 
-            this.btnLoadInfoAboutTutor.Location = new System.Drawing.Point(204, 19);
+            this.btnLoadInfoAboutTutor.Location = new System.Drawing.Point(402, 19);
             this.btnLoadInfoAboutTutor.Name = "btnLoadInfoAboutTutor";
             this.btnLoadInfoAboutTutor.Size = new System.Drawing.Size(75, 23);
             this.btnLoadInfoAboutTutor.TabIndex = 10;
@@ -540,7 +548,7 @@
             // 
             // txtTutorByEmail
             // 
-            this.txtTutorByEmail.Location = new System.Drawing.Point(12, 20);
+            this.txtTutorByEmail.Location = new System.Drawing.Point(210, 20);
             this.txtTutorByEmail.Name = "txtTutorByEmail";
             this.txtTutorByEmail.Size = new System.Drawing.Size(177, 20);
             this.txtTutorByEmail.TabIndex = 9;
@@ -560,7 +568,7 @@
             this.grpTutorInfo.Controls.Add(this.lblTutorEmail);
             this.grpTutorInfo.Controls.Add(this.lblTutorLastName);
             this.grpTutorInfo.Controls.Add(this.lblTutorFirstName);
-            this.grpTutorInfo.Location = new System.Drawing.Point(9, 56);
+            this.grpTutorInfo.Location = new System.Drawing.Point(207, 56);
             this.grpTutorInfo.Name = "grpTutorInfo";
             this.grpTutorInfo.Size = new System.Drawing.Size(586, 153);
             this.grpTutorInfo.TabIndex = 8;
@@ -671,35 +679,14 @@
             this.lblTutorFirstName.TabIndex = 0;
             this.lblTutorFirstName.Text = "First name";
             // 
-            // chkNewTutor
-            // 
-            this.chkNewTutor.AutoSize = true;
-            this.chkNewTutor.Location = new System.Drawing.Point(299, 23);
-            this.chkNewTutor.Name = "chkNewTutor";
-            this.chkNewTutor.Size = new System.Drawing.Size(72, 17);
-            this.chkNewTutor.TabIndex = 7;
-            this.chkNewTutor.Text = "New tutor";
-            this.chkNewTutor.UseVisualStyleBackColor = true;
-            this.chkNewTutor.CheckedChanged += new System.EventHandler(this.chkNewTutor_CheckedChanged);
-            // 
             // lblFindTutor
             // 
             this.lblFindTutor.AutoSize = true;
-            this.lblFindTutor.Location = new System.Drawing.Point(9, 3);
+            this.lblFindTutor.Location = new System.Drawing.Point(207, 3);
             this.lblFindTutor.Name = "lblFindTutor";
             this.lblFindTutor.Size = new System.Drawing.Size(95, 13);
             this.lblFindTutor.TabIndex = 6;
             this.lblFindTutor.Text = "Find tutor by email:";
-            // 
-            // btnMakeOrder
-            // 
-            this.btnMakeOrder.Location = new System.Drawing.Point(643, 287);
-            this.btnMakeOrder.Name = "btnMakeOrder";
-            this.btnMakeOrder.Size = new System.Drawing.Size(241, 23);
-            this.btnMakeOrder.TabIndex = 16;
-            this.btnMakeOrder.Text = "Make an order";
-            this.btnMakeOrder.UseVisualStyleBackColor = true;
-            this.btnMakeOrder.Click += new System.EventHandler(this.btnMakeOrder_Click);
             // 
             // MainForm
             // 
@@ -707,6 +694,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 523);
             this.Controls.Add(this.tabModes);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SST";
@@ -774,7 +762,6 @@
         private System.Windows.Forms.Label lblTutorEmail;
         private System.Windows.Forms.Label lblTutorLastName;
         private System.Windows.Forms.Label lblTutorFirstName;
-        private System.Windows.Forms.CheckBox chkNewTutor;
         private System.Windows.Forms.Label lblFindTutor;
         private System.Windows.Forms.DateTimePicker dtmBeginningWorkingDay;
         private System.Windows.Forms.DataGridView dgvTutorsDisciplines;

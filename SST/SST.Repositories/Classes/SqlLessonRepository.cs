@@ -22,6 +22,7 @@ namespace SST.Repositories.Classes
         private const string spGetLessonsDateTimesByTutorId = "spGetLessonsDateTimesByTutorId";
         private const string spUpdateLessonStatus = "spUpdateLessonStatus";
         private const string spUpdateLessonPaid = "spUpdateLessonPaid";
+        private const string spInsertLessons = "spInsertLessons";
 
         #endregion
 
@@ -126,6 +127,34 @@ namespace SST.Repositories.Classes
                             lessons.Add(lesson);
                         }
                         return lessons;
+                    }
+                }
+            }
+        }
+
+        public void InsertLessons(IEnumerable<Lesson> lessons)
+        {
+            using (SqlConnection connection = new SqlConnection(_connection))
+            {
+                connection.Open();
+                foreach (var lesson in lessons)
+                {
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.Connection = connection;
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.CommandText = spInsertLessons;
+
+                        command.Parameters.AddWithValue("@TutorId", lesson.TutorId);
+                        command.Parameters.AddWithValue("@LearnerId", lesson.LearnerId);
+                        command.Parameters.AddWithValue("@DisciplineId", lesson.DisciplineId);
+                        command.Parameters.AddWithValue("@LessonTime", lesson.LessonTime);
+                        command.Parameters.AddWithValue("@Price", lesson.Price);
+                        command.Parameters.AddWithValue("@Paid", lesson.IsPaid);
+                        command.Parameters.AddWithValue("@StatusId", lesson.StatusId);
+                        command.Parameters.AddWithValue("@UserId", lesson.UserId);
+
+                        command.ExecuteNonQuery();
                     }
                 }
             }

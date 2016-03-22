@@ -20,6 +20,7 @@ namespace SST.Repositories.Classes
 
         private const string spGetAllDesciplines = "spGetAllDesciplines";
         private const string spGetDisciplinesByTutorId = "spGetDisciplinesByTutorId";
+        private const string spGetDisciplineIdByName = "spGetDisciplineIdByName";
 
         #endregion
 
@@ -86,6 +87,29 @@ namespace SST.Repositories.Classes
                     }
                 }
             }
+        }
+
+        public int GetDisciplineIdByName(string name)
+        {
+            using (SqlConnection connection = new SqlConnection(_connection))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = spGetDisciplineIdByName;
+                    command.Parameters.AddWithValue("@Name", name);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {                            
+                            return (int)reader["Id"];
+                        }
+                    }
+                }
+            }
+            return -1;
         }
     }
 }

@@ -31,9 +31,11 @@ namespace SST.DesktopUI
         private ILessonRepository _lessonRepository;
         private ITutorRepository _tutorRepository;
         private IDisciplineRepository _disciplineRepository;
+        private IPriceRepository _priceRepository;
         private Learner _learner;
         private Tutor _tutor;
-        private List<Lesson> _lessons;
+
+        BindingList<string> _unselectedDays = new BindingList<string>() { DayOfWeek.Monday.ToString(), DayOfWeek.Tuesday.ToString(), DayOfWeek.Wednesday.ToString(), DayOfWeek.Thursday.ToString(), DayOfWeek.Friday.ToString() };
 
         #endregion
         public MainForm()
@@ -71,13 +73,15 @@ namespace SST.DesktopUI
 
             btnChangeTutor.Enabled = false;
 
+            btnShowTutors.Enabled = false;
+
             _learnerRepository = new SqlLearnerRepository(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString);
             _lessonRepository = new SqlLessonRepository(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString);
             _tutorRepository = new SqlTutorRepository(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString);
             _disciplineRepository = new SqlDisciplineRepository(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString);
+            _priceRepository = new SqlPriceRepository(ConfigurationManager.ConnectionStrings["SSTDb"].ConnectionString);
             _learner = null;
             _tutor = null;
-            _lessons = null;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -100,6 +104,8 @@ namespace SST.DesktopUI
                 txtLearnerPhoneNumber.ReadOnly = false;
                 txtLearnerByEmail.Enabled = false;
                 btnLoadInfoAboutLearner.Enabled = false;
+
+                btnShowTutors.Enabled = true;
             }
             else
             {
@@ -109,6 +115,8 @@ namespace SST.DesktopUI
                 txtLearnerPhoneNumber.ReadOnly = true;
                 txtLearnerByEmail.Enabled = true;
                 btnLoadInfoAboutLearner.Enabled = true;
+
+                btnShowTutors.Enabled = false;
             }
         }
 
@@ -179,6 +187,8 @@ namespace SST.DesktopUI
             txtLearnerPhoneNumber.Text = _learner.PhoneNumber;
 
             LoadInfoAboutLearnerToDataGrid();
+
+            btnShowTutors.Enabled = true;
         }
 
         private void btnCancelSelectedLessons_Click(object sender, EventArgs e)
@@ -220,6 +230,12 @@ namespace SST.DesktopUI
 
         private void btnSelectTutor_Click(object sender, EventArgs e)
         {
+            if (chkNewLearner.Checked && (txtLearnerFirstName.Text == string.Empty || txtLearnerLastName.Text == string.Empty || txtLearnerEmail.Text == string.Empty || txtLearnerPhoneNumber.Text == string.Empty))
+            {
+                MessageBox.Show(this, "You must enter all data about new learner.", "Entered Learner Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             List<Tutor> tutors = _tutorRepository.SelectAllTutorsWithDisciplinesAndPrices().ToList<Tutor>();
 
             var inf = (from tutor in tutors select new { TutorId = tutor.Id, FirstName = tutor.FirstName, LastName = tutor.LastName, BeginningWorkingDay = tutor.BeginningWorkingDay, EndWorkingDay = tutor.EndWorkingDay, Discipline = tutor.DisciplineInfo.Name, PricePerHour = tutor.PriceInfo.LessonPrice }).ToList();
@@ -306,8 +322,6 @@ namespace SST.DesktopUI
             MaxPriceFilter();
         }
 
-        BindingList<string> unselectedDays = new BindingList<string>() { DayOfWeek.Monday.ToString(), DayOfWeek.Tuesday.ToString(), DayOfWeek.Wednesday.ToString(), DayOfWeek.Thursday.ToString(), DayOfWeek.Friday.ToString() };
-
         private void btnSelectTutor_Click_1(object sender, EventArgs e)
         {
             dgvTutorsInfo.Enabled = false;
@@ -337,8 +351,8 @@ namespace SST.DesktopUI
             dtmFirstLessonStart.Value = initialDataForm.FirstLessonDate;
             dgvDayTime.Rows.Add(initialDataForm.FirstLessonDate.DayOfWeek.ToString(), initialDataForm.FirstLessonTime.ToString());
 
-            unselectedDays.Remove(dtmFirstLessonStart.Value.DayOfWeek.ToString());
-            cmbDay.DataSource = unselectedDays;
+            _unselectedDays.Remove(dtmFirstLessonStart.Value.DayOfWeek.ToString());
+            cmbDay.DataSource = _unselectedDays;
 
             lblAmountLessons.Visible = true;
             lblFirstDate.Visible = true;
@@ -350,33 +364,38 @@ namespace SST.DesktopUI
             btnAddDay.Visible = true;
         }
 
+        private void AllowSelectTutor()
+        {
+            dgvTutorsInfo.Enabled = true;
+            lblAmountLessons.Visible = false;
+            lblFirstDate.Visible = false;
+            dtmFirstLessonStart.Visible = false;
+            txtAmountLessons.Visible = false;
+            dgvDayTime.Visible = false;
+            cmbDay.Visible = false;
+            cmbTime.Visible = false;
+            btnAddDay.Visible = false;
+            cmbDay.Enabled = true;
+            cmbTime.Enabled = true;
+            btnAddDay.Enabled = true;
+            dgvDayTime.Rows.Clear();
+            _unselectedDays = new BindingList<string>() { DayOfWeek.Monday.ToString(), DayOfWeek.Tuesday.ToString(), DayOfWeek.Wednesday.ToString(), DayOfWeek.Thursday.ToString(), DayOfWeek.Friday.ToString() };
+
+            cmbDisciplinesFilter.Enabled = true;
+            txtMaxPrice.Enabled = true;
+            txtMinPrice.Enabled = true;
+
+            btnChangeTutor.Enabled = false;
+            btnSelectTutor.Enabled = true;
+        }
+
         private void btnChangeTutor_Click(object sender, EventArgs e)
         {
 
-            DialogResult dialogResult = MessageBox.Show(this, "All selected data will be lost. Do you still want change a selected tutor?", "Change tutor warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MessageBox.Show(this, "All selected data will be lost. Do you still want change a selected tutor?", "Change tutor warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                dgvTutorsInfo.Enabled = true;
-                lblAmountLessons.Visible = false;
-                lblFirstDate.Visible = false;
-                dtmFirstLessonStart.Visible = false;
-                txtAmountLessons.Visible = false;
-                dgvDayTime.Visible = false;
-                cmbDay.Visible = false;
-                cmbTime.Visible = false;
-                btnAddDay.Visible = false;
-                cmbDay.Enabled = true;
-                cmbTime.Enabled = true;
-                btnAddDay.Enabled = true;
-                dgvDayTime.Rows.Clear();
-                unselectedDays = new BindingList<string>() { DayOfWeek.Monday.ToString(), DayOfWeek.Tuesday.ToString(), DayOfWeek.Wednesday.ToString(), DayOfWeek.Thursday.ToString(), DayOfWeek.Friday.ToString() };
-
-                cmbDisciplinesFilter.Enabled = true;
-                txtMaxPrice.Enabled = true;
-                txtMinPrice.Enabled = true;
-
-                btnChangeTutor.Enabled = false;
-                btnSelectTutor.Enabled = true;
+                AllowSelectTutor();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -416,39 +435,6 @@ namespace SST.DesktopUI
             this.txtTutorByEmail.AutoCompleteCustomSource = collection;
         }
 
-        private void chkNewTutor_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkNewTutor.Checked)
-            {
-                txtTutorFirstName.Clear();
-                txtTutorLastName.Clear();
-                txtTutorEmail.Clear();
-                txtTutorPhoneNumber.Clear();
-                txtTutorByEmail.Clear();
-                dtmBeginningWorkingDay.Text = string.Empty;
-                dtmEndWorkingDay.Text = string.Empty;
-                txtTutorFirstName.ReadOnly = false;
-                txtTutorLastName.ReadOnly = false;
-                txtTutorEmail.ReadOnly = false;
-                txtTutorPhoneNumber.ReadOnly = false;
-                txtTutorByEmail.Enabled = false;
-                dtmBeginningWorkingDay.Enabled = true;
-                dtmEndWorkingDay.Enabled = true;
-                btnLoadInfoAboutTutor.Enabled = false;
-            }
-            else
-            {
-                txtTutorFirstName.ReadOnly = true;
-                txtTutorLastName.ReadOnly = true;
-                txtTutorEmail.ReadOnly = true;
-                txtTutorPhoneNumber.ReadOnly = true;
-                txtTutorByEmail.Enabled = true;
-                dtmBeginningWorkingDay.Enabled = false;
-                dtmEndWorkingDay.Enabled = false;
-                btnLoadInfoAboutTutor.Enabled = true;
-            }
-        }
-
         private void txtMinPrice_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -471,9 +457,9 @@ namespace SST.DesktopUI
             {
                 dgvDayTime.Rows.Add(cmbDay.SelectedValue.ToString(), cmbTime.SelectedValue.ToString());
 
-                unselectedDays.Remove(cmbDay.SelectedValue.ToString());
+                _unselectedDays.Remove(cmbDay.SelectedValue.ToString());
 
-                if (unselectedDays.Count == 0)
+                if (_unselectedDays.Count == 0)
                 {
                     cmbDay.Enabled = false;
                     cmbTime.Enabled = false;
@@ -488,7 +474,7 @@ namespace SST.DesktopUI
 
         private void cmbDay_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (unselectedDays.Count != 0)
+            if (_unselectedDays.Count != 0)
             {
                 DateTime date = dtmFirstLessonStart.Value;
                 while (date.DayOfWeek.ToString() != cmbDay.SelectedValue.ToString())
@@ -527,8 +513,10 @@ namespace SST.DesktopUI
                 {
                     date = date.AddDays(1);
                 }
+
                 TimeSpan time = TimeSpan.Parse(row.Cells[1].Value.ToString());
-                dates.Add(new Tuple<DateTime, TimeSpan>(date, time));                
+
+                dates.Add(new Tuple<DateTime, TimeSpan>(date, time));
             }
 
             dates.Sort((x, y) => x.Item1.CompareTo(y.Item1));
@@ -537,24 +525,96 @@ namespace SST.DesktopUI
 
             for (int i = 0; i < dates.Count; i++)
             {
-                for(int j = 0; j < amountLessons / dates.Count; j++)
+                for (int j = 0; j < amountLessons / dates.Count; j++)
                 {
                     Lesson lesson = new Lesson();
 
                     lesson.LessonTime = dates[i].Item1.AddDays(j * 7).Date.Add(dates[i].Item2);
-                    lessons.Add(lesson);                    
+
+                    List<TimeSpan> lessonsTime = (from lessonTime in _lessonRepository.GetLessonsDateTimesByTutorId(_tutor.Id).ToList<Lesson>() where lessonTime.LessonTime.Date == lesson.LessonTime.Date select lessonTime.LessonTime.TimeOfDay).ToList<TimeSpan>();
+
+                    if (lessonsTime.Contains(lesson.LessonTime.TimeOfDay))
+                    {
+                        MessageBox.Show(this, "You can't do order, beacuse this tutor have lesson at this time in future. Try change a tutor or set less amount of lessons.", "Order Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        AllowSelectTutor();
+
+                        return;
+                    }
+
+                    lessons.Add(lesson);
                 }
             }
 
-            for(int i = 0; i < amountLessons % dates.Count; i++)
+            for (int i = 0; i < amountLessons % dates.Count; i++)
             {
                 Lesson lesson = new Lesson();
 
                 lesson.LessonTime = dates[i].Item1.AddDays((amountLessons / dates.Count) * 7).Date.Add(dates[i].Item2);
-                lessons.Add(lesson);                
+
+                List<TimeSpan> lessonsTime = (from lessonTime in _lessonRepository.GetLessonsDateTimesByTutorId(_tutor.Id).ToList<Lesson>() where lessonTime.LessonTime.Date == lesson.LessonTime.Date select lessonTime.LessonTime.TimeOfDay).ToList<TimeSpan>();
+
+                if (lessonsTime.Contains(lesson.LessonTime.TimeOfDay))
+                {
+                    MessageBox.Show(this, "You can't do order, beacuse this tutor have lesson at this time in future. Try change a tutor or set less amount of lessons.", "Order Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    AllowSelectTutor();
+
+                    return;
+                }
+
+                lessons.Add(lesson);
             }
 
-            
+            if (chkNewLearner.Checked)
+            {
+                _learner = new Learner();
+                _learner.FirstName = txtLearnerFirstName.Text;
+                _learner.LastName = txtLearnerLastName.Text;
+                _learner.Email = txtLearnerEmail.Text;
+                _learner.PhoneNumber = txtLearnerPhoneNumber.Text;
+                try
+                {
+                    _learner.Id = _learnerRepository.InsertLearner(_learner);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            DataGridViewSelectedRowCollection selectedRow = dgvTutorsInfo.SelectedRows;
+
+            string disciplineName = dgvTutorsInfo[5, selectedRow[0].Index].Value.ToString();
+            int disciplineId = _disciplineRepository.GetDisciplineIdByName(disciplineName);
+            decimal price = _priceRepository.GetPriceByTutorIdANDDisciplineId(_tutor.Id, disciplineId);
+
+            foreach (var lesson in lessons)
+            {
+                lesson.TutorId = _tutor.Id;
+                lesson.LearnerId = _learner.Id;
+                lesson.DisciplineId = disciplineId;
+                lesson.Price = price;
+                lesson.IsPaid = false;
+                lesson.StatusId = 0;
+                lesson.UserId = CurrentUser.Id;
+            }
+
+            try
+            {
+                _lessonRepository.InsertLessons(lessons);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show(this, "Order done.", "Order Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            AllowSelectTutor();
+            LoadInfoAboutLearnerToDataGrid();
         }
     }
 }

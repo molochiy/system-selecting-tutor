@@ -16,5 +16,7 @@ namespace SST.Repositories.Interfaces
         void UpdateLessonStatus(int id, int status);
 
         void UpdateLessonPaid(int id);
+
+        void InsertLessons(IEnumerable<Lesson> lessons);
     }
 }

@@ -43,10 +43,12 @@
     <Compile Include="Classes\SqlDisciplineRepository.cs" />
     <Compile Include="Classes\SqlLearnerRepository.cs" />
     <Compile Include="Classes\SqlLessonRepository.cs" />
+    <Compile Include="Classes\SqlPriceRepository.cs" />
     <Compile Include="Classes\SqlTutorRepository.cs" />
     <Compile Include="Interfaces\IDisciplineRepository.cs" />
     <Compile Include="Interfaces\ILearnerRepository.cs" />
     <Compile Include="Interfaces\ILessonRepository.cs" />
+    <Compile Include="Interfaces\IPriceRepository.cs" />
     <Compile Include="Interfaces\ITutorRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

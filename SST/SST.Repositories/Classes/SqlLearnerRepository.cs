@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SST.Entities;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace SST.Repositories.Classes
 {
@@ -20,6 +21,7 @@ namespace SST.Repositories.Classes
 
         private const string spGetLearnersByPartOfEmail = "spGetLearnersByPartOfEmail";
         private const string spGetLearnerByEmail = "spGetLearnerByEmail";
+        private const string spInsertLearner = "spInsertLearner";
 
 
         #endregion
@@ -90,6 +92,32 @@ namespace SST.Repositories.Classes
                         }
                         return learner;
                     }
+                }
+            }
+        }
+
+        public int InsertLearner(Learner learner)
+        {
+            using (SqlConnection connection = new SqlConnection(_connection))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = spInsertLearner;
+
+                    command.Parameters.AddWithValue("@FirstName", learner.FirstName);
+                    command.Parameters.AddWithValue("@LastName", learner.LastName);
+                    command.Parameters.AddWithValue("@Email", learner.Email);
+                    command.Parameters.AddWithValue("@PhoneNumber", learner.PhoneNumber);
+
+                    SqlParameter output = new SqlParameter("@Id", SqlDbType.Int);
+                    output.Direction = ParameterDirection.Output;
+                    command.Parameters.Add(output);
+
+                    command.ExecuteNonQuery();
+                    return (int)output.Value;
                 }
             }
         }
