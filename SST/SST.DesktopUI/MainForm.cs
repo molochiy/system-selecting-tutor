@@ -389,6 +389,7 @@ namespace SST.DesktopUI
             btnSelectTutor.Enabled = true;
         }
 
+        // Review OG: redundunt else if statement
         private void btnChangeTutor_Click(object sender, EventArgs e)
         {
 
@@ -403,6 +404,7 @@ namespace SST.DesktopUI
             }
         }
 
+        // Review OG: try to make code more readable, and check for input txtTutorByEmail when it is nullOrEpmty 
         private void btnLoadInfoAboutTutor_Click(object sender, EventArgs e)
         {
             Tutor tutor = _tutorRepository.GetTutorByEmail(txtTutorByEmail.Text);
